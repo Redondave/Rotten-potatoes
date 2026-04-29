@@ -1,18 +1,25 @@
+<style>
+  /* Add styles for the sorted column */
+  .sorted {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+</style>
 <h1 > All Movies </h1 >
 <p></p>
 
 <%= link_to 'Add Movie ', new_movie_path , :class => 'btn btn - primary ' %>
 <div id =" movies ">
     <div class =" row ">
-        <div class =" col -8 "> Movie Title </div>
+        <div class =" col -8 "> <%= link_to "Movie Title" , movies_path(:sort => 'title', :id => 'title_header'), class: active_class('title') %> </div>
         <div class =" col -2 "> Rating </div>
-        <div class =" col -2 "> Release Date </div>
+        <div class =" col -2 "> <%= link_to "Release Date" , movies_path(:sort => 'release_date', :id => 'release_date_header'), class: active_class('release_date') %> </div>
     </div>
     <%-@movies.each do | movie | %>
         <div class =" row ">
-            <div class =" col -8 " > <%= link_to movie.title , movie_path( movie ) %> </div >
+            <div class ="<%= active_class('title') %>"> <%= link_to movie.title , movie_path( movie ) %> </div >
             <div class =" col -2 " > <%= movie.rating %> </div>
-            <div class =" col -2 " > <%= movie.release_date.strftime('%F') %> </div >
+            <div class ="<%= active_class('release_date') %>"> <%= movie.release_date.strftime('%F') %> </div >
         </div>
     <% end %>
 </div >
