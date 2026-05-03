@@ -8,11 +8,15 @@ class MoviesController < ApplicationController
     end
   end
 
+  def new
+  end
+
   def show
     @movie = Movie.find(params[:id])
   end
 
   def create
+    params.permit!
     if (@movie = Movie.create(params[:movie]))
       redirect_to movies_path, notice: "Movie '#{@movie.title}' was successfully created."
     else
@@ -38,6 +42,7 @@ class MoviesController < ApplicationController
 
   def destroy
     @movie = Movie.find(params[:id])
+    params.permit!
     @movie.destroy
     redirect_to movies_path, notice: "Movie '#{@movie.title}' was successfully deleted."
   end
@@ -57,6 +62,6 @@ class MoviesController < ApplicationController
   end
 
   def movie_params
-    params.require(:movie).permit(:title, :rating, :description, :release_date)
+    params.require(:movie).permit(:title, :release_date, :rating, :description)
   end
 end
