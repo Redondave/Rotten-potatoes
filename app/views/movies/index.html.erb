@@ -1,19 +1,42 @@
 <style>
   /* Add styles for the sorted column */
   .sorted {
-    font-weight: bold;
-    text-decoration: underline;
+    background-color: #f0f0f0; /* Light gray background for sorted column */
+    text-decoration: underline; /* Underline the sorted column header */
+  }
+
+  #header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    gap : 10px;
+    align-items: center;
   }
 </style>
 <h1 > All Movies </h1 >
 <p></p>
 
-<%= link_to 'Add Movie ', new_movie_path , :class => 'btn btn - primary ' %>
+<div id="header">
+    <%= link_to 'Add movie', new_movie_path , :class => 'btn btn - primary ' %>
+    <form action="<%= search_tmdb_path %>" method="get" class="form-inline">
+        <div class="form-group">
+            <%= label_tag :search_terms, "Search TMDb for a movie:" %>
+            <%= text_field_tag :search_terms, nil, class: "form-control" %>
+            <%= submit_tag "Search TMDb", class: "btn btn - primary " %>
+        </div>
+    </form>
+</div>
+
 <div id =" movies ">
     <div class =" row ">
-        <div class =" col -8 "> <%= link_to "Movie Title" , movies_path(:sort => 'title', :id => 'title_header'), class: active_class('title') %> </div>
-        <div class =" col -2 "> Rating </div>
-        <div class =" col -2 "> <%= link_to "Release Date" , movies_path(:sort => 'release_date', :id => 'release_date_header'), class: active_class('release_date') %> </div>
+        <div class =" col -8 text-align center "> <%= link_to "Movie Title" , movies_path(:sort => 'title', :id => 'title_header'), class: active_class('title') %> </div>
+        <div class =" col -2 text-align center "> Rating </div>
+        <div class =" col -2 text-align center "> <%= link_to "Release Date" , movies_path(:sort => 'release_date', :id => 'release_date_header'), class: active_class('release_date') %> </div>
     </div>
     <%-@movies.each do | movie | %>
         <div class =" row ">
